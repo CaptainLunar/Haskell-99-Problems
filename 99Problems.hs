@@ -1,13 +1,4 @@
-module Problems
-( myLast,
-  myButLast,
-  elementAt,
-  numElements,
-  reverseList,
-  reverseList2,
-  isPalindrome,
-  isPalindrome2
-  ) where
+module Problems where
 -- Haskell 99 Problems Solutions & Functions 
 
 import Data.List
