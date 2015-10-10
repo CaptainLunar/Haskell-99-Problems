@@ -3,6 +3,11 @@ module Problems where
 
 import Data.List
 import Data.Char
+import Data.Bits
+import Data.Binary
+import Numeric
+
+--import Data.Digits
 
 -- Problem 1
 -- Find the last element of a list.
@@ -61,4 +66,45 @@ isPalindrome2 lst
 -- Flatten a nested list structure.
 -- Transform a list, possibly holding lists as elements into a `flat' list 
 -- by replacing each list with its elements (recursively).
+-- join :: Monad m => m (m a) -> m a
+-- data BigBoss = JUST | A | BIG | GUY deriving (Show)
+--toDec :: String -> Int
+--toDec = foldl' (\acc x -> acc * 2 + digitToInt x) 0
+--myBinAdd :: (Int, Int) -> IO ()
+--myBinAdd (x, y) = 
+--  if y == 0
+--    then putStrLn $ showIntAtBase 2 intToDigit x ""
+--    else myBinAdd(xor x y, shiftL (x.&.y) 1)
 
+-- lel takes a 2-tuple string of binary numbers and adds them together
+-- 252 characters
+lel :: (String, String) -> IO ()
+lel (x, y) = b(d(x), d(y))
+    where d = foldl' (\c x -> c * 2 + digitToInt x) 0 
+          b (x, y) = if y == 0
+            then putStrLn $ showIntAtBase 2 intToDigit x ""
+            else b(xor x y, shiftL (x.&.y) 1) 
+
+-- 284 characters on Ben's code
+binAdd :: [Int] -> [Int] -> [Int]
+binAdd xs ys = reverse . binAdd' . reverse $ zipWith (+) (pad xs) (pad ys)
+  where
+    binAdd' (n:ns) = map snd $ scanl f (divMod n 2) ns
+    f (c, r) b = divMod (b + c) 2
+    pad zs = replicate (abs $ length zs - max (length xs) (length ys)) 0 ++ zs
+
+--myBinAdd2 :: ()
+--toBinary :: Int -> Int
+--toBinary n = 
+--  if n > 0
+--    then n
+--    otherwise (n mod 2)
+
+
+
+--binAdd :: [Int] -> [Int] -> [Int]
+--binAdd xs ys = binAdd' $ zipWith (+) (pad xs) (pad ys)
+--where
+--   binAdd' (n:ns) = map snd $ scanr g (divMod n 2) ns
+--   g b (c, r) = divMod (b + c) 2
+--   pad zs = replicate (abs $ length zs - max (length xs) (length ys)) 0 ++ zs
