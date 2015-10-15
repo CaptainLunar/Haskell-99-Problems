@@ -66,6 +66,9 @@ isPalindrome2 lst
 -- Flatten a nested list structure.
 -- Transform a list, possibly holding lists as elements into a `flat' list 
 -- by replacing each list with its elements (recursively).
+-- TO BE IMPLEMENTED
+
+
 
 -- lel takes a 2-tuple string of binary numbers and adds them together
 -- 250 characters
@@ -75,19 +78,3 @@ lel x y = b(d(x), d(y))
           b (x, y) = if y == 0
             then putStrLn $ showIntAtBase 2 intToDigit x ""
             else b(xor x y, shiftL (x.&.y) 1) 
-
---myBinAdd2 :: ()
---toBinary :: Int -> Int
---toBinary n = 
---  if n > 0
---    then n
---    otherwise (n mod 2)
-
-
-
---binAdd :: [Int] -> [Int] -> [Int]
---binAdd xs ys = binAdd' $ zipWith (+) (pad xs) (pad ys)
---where
---   binAdd' (n:ns) = map snd $ scanr g (divMod n 2) ns
---   g b (c, r) = divMod (b + c) 2
---   pad zs = replicate (abs $ length zs - max (length xs) (length ys)) 0 ++ zs
