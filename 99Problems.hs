@@ -86,7 +86,5 @@ pack = group
 -- of duplucates of the element E.
 -- Example (encode `(a a a a b c c a a d e e e))
 -- => ((4 A) (1 B) (2 C) (2 A) (1 D)(4 E))
-encode :: (Ord a) => [[a]] -> [(Int, a)]
-encode = map (\x -> (length x, head x))
-
- 
+encode :: (Ord a) => [a] -> [(Int, a)]
+encode = map (\x -> (length x, head x)) . pack 
