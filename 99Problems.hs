@@ -1,13 +1,9 @@
-module Problems where
 -- Haskell 99 Problems Solutions & Functions 
+-- lunar muffins: All rights reserved 2015
+module Problems where
 
 import Data.List
 import Data.Char
-import Data.Bits (xor, shiftL, (.&.))
-import Data.Binary
-import Numeric (showIntAtBase)
-
---import Data.Digits
 
 -- Problem 1
 -- Find the last element of a list.
@@ -44,37 +40,53 @@ reverseList (x:xs) = reverseList xs ++ [x]
 -- Alternative to problem 5
 reverseList2 :: [a] -> [a]
 reverseList2 [] = []
-reverseList2 lst = reverse lst
+reverseList2 l = reverse l
 
 -- Problem 6
 -- Find out whether a list is a palindrome. 
--- A palindrome can be read forward or backward; e.g. (x a m a x).
 isPalindrome :: (Eq a) => [a] -> String
 isPalindrome [] = "Empty lists aren't a palindrome"
-isPalindrome lst
-	| lst == reverse lst = "Is a palindrome"
-	| otherwise = "Not a palindrome"
+isPalindrome l
+    | l == reverse l = "Is a palindrome"
+    | otherwise = "Not a palindrome"
 
--- Alternative to problem 7
+-- Alternative to problem 6
 isPalindrome2 :: (Eq a) => [a] -> Bool
 isPalindrome2 [] = False
 isPalindrome2 lst
-	| lst == reverseList lst = True
-	| otherwise = False
+    | lst == reverse lst = True
+    | otherwise = False
 
 -- Problem 7 
 -- Flatten a nested list structure.
 -- Transform a list, possibly holding lists as elements into a `flat' list 
--- by replacing each list with its elements (recursively).
--- TO BE IMPLEMENTED
+data NestedList a = Elem a | List [NestedList a]
+flatten :: NestedList a -> [a]
+flatten (List []) = []
+flatten (Elem a) = [a]
+flatten (List (x:xs)) = flatten (x) ++ flatten (List xs) 
 
+-- Problem 8
+-- Eliminate consecutive duplicates of list elements
+compress :: (Eq a) => [a] -> [a]
+compress = nub
 
+-- Problem 9
+-- Pack consecutive duplicates of list elements into sublists. 
+-- If a list contains repeated elements they should be placed in separate sublists
+-- Example (a a a a a a b c c c c d e e e ) 
+-- => ((a a a a a a) (b) (c c c c) (d) (e e e ))
+pack :: (Ord a) => [a] -> [[a]]
+pack = group
 
--- lel takes a 2-tuple string of binary numbers and adds them together
--- 250 characters
-lel :: String -> String -> IO ()
-lel x y = b(d(x), d(y))
-    where d = foldl' (\c x -> c * 2 + digitToInt x) 0 
-          b (x, y) = if y == 0
-            then putStrLn $ showIntAtBase 2 intToDigit x ""
-            else b(xor x y, shiftL (x.&.y) 1) 
+-- Problem 10 
+-- Run-length encoding of a list. Use the result of problem 9 to implement
+-- the so called run-length encoding data compression method. Consecutive
+-- duplicates of elements are encoded as lists (N E) where N is the number
+-- of duplucates of the element E.
+-- Example (encode `(a a a a b c c a a d e e e))
+-- => ((4 A) (1 B) (2 C) (2 A) (1 D)(4 E))
+encode :: (Ord a) => [[a]] -> [(Int, a)]
+encode = map (\x -> (length x, head x))
+
+ 
