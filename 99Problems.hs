@@ -127,6 +127,9 @@ ucEncoder ((Multiple _ x):xs)  = x : ucEncoder xs
 
 -- Problem 14
 -- Duplicate the elements of a list
+dupList :: [a] -> [a]
+dupList [] = []
+dupList (x:xs) = x : x : dupList xs
 
 -- Problem 15 
 -- Replicate the elements of a list a given number of times
